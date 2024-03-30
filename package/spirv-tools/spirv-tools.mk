@@ -19,3 +19,13 @@ SPIRV_TOOLS_CONF_OPTS = \
 	-DSPIRV_WERROR=OFF
 
 $(eval $(cmake-package))
+
+HOST_SPIRV_TOOLS_CONF_OPTS = \
+	-DSPIRV-Headers_SOURCE_DIR=$(HOST_DIR)/usr \
+	-DSPIRV_TOOLS_BUILD_STATIC=OFF \
+	-DSPIRV_SKIP_TESTS=ON \
+	-DSPIRV_WERROR=OFF
+
+HOST_SPIRV_TOOLS_DEPENDENCIES = host-spirv-headers
+
+$(eval $(host-cmake-package))

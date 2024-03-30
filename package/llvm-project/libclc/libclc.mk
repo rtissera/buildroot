@@ -41,4 +41,7 @@ LIBCLC_CONF_OPTS = \
 	-DLLVM_CONFIG="$(HOST_DIR)/bin/llvm-config"
 
 $(eval $(cmake-package))
+
+HOST_LIBCLC_DEPENDENCIES = host-clang host-spirv-tools host-spirv-llvm-translator
+
 $(eval $(host-cmake-package))
