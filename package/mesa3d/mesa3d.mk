@@ -76,7 +76,7 @@ endif
 
 #batocera - asahi needs libclc spirv-tools and host-spirv-llvm-translator
 ifeq ($(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_ASAHI),y)
-MESA3D_DEPENDENCIES += libclc spirv-tools host-spirv-llvm-translator spirv-llvm-translator clang
+MESA3D_DEPENDENCIES += host-qemu host-libclc libclc spirv-tools host-spirv-llvm-translator spirv-llvm-translator clang
 endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_NEEDS_ELFUTILS),y)

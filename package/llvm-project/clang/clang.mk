@@ -18,7 +18,7 @@ CLANG_CPE_ID_VENDOR = llvm
 CLANG_SUPPORTS_IN_SOURCE_BUILD = NO
 CLANG_INSTALL_STAGING = YES
 
-HOST_CLANG_DEPENDENCIES = host-llvm host-libxml2
+HOST_CLANG_DEPENDENCIES = host-batocera-llvm host-libxml2
 CLANG_DEPENDENCIES = batocera-llvm host-clang
 
 # This option is needed, otherwise multiple shared libs
