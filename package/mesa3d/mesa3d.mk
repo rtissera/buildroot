@@ -88,10 +88,12 @@ ifeq ($(BR2_PACKAGE_MESA3D_OPENGL_GLX),y)
 # glx:
 #  dri          : dri based GLX requires at least one DRI driver || dri based GLX requires shared-glapi
 #  xlib         : xlib conflicts with any dri driver
+MESA3D_CONF_OPTS += -Dglx=dri
 # Always enable glx-direct; without it, many GLX applications don't work.
-MESA3D_CONF_OPTS += \
-	-Dglx=dri \
-	-Dglx-direct=true
+# batocera : except for asahi
+ifneq ($(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_ASAHI),y)
+MESA3D_CONF_OPTS += -Dglx-direct=true
+endif
 ifeq ($(BR2_PACKAGE_MESA3D_NEEDS_XA),y)
 MESA3D_CONF_OPTS += -Dgallium-xa=enabled
 else
@@ -280,7 +282,12 @@ endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_OPENGL_ES),y)
 MESA3D_PROVIDES += $(if $(BR2_PACKAGE_LIBGLVND),,libgles)
+# batocera no GLES 1 for asahi
+ifeq ($(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_ASAHI),y)
+MESA3D_CONF_OPTS += -Dgles1=disabled -Dgles2=enabled
+else
 MESA3D_CONF_OPTS += -Dgles1=enabled -Dgles2=enabled
+endif
 else
 MESA3D_CONF_OPTS += -Dgles1=disabled -Dgles2=disabled
 endif
