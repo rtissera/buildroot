@@ -75,6 +75,9 @@ LINUX_DEPENDENCIES = \
 	$(BR2_MAKE_HOST_DEPENDENCY)
 LINUX_MAKE = $(BR2_MAKE)
 
+#batocera (rust linux kernel)
+LINUX_DEPENDENCIES += host-libcurl host-rustc host-rust-bindgen
+
 # The kernel CONFIG_EXTRA_FIRMWARE feature requires firmware files at build
 # time. Make sure they are available before the kernel builds.
 LINUX_DEPENDENCIES += \
@@ -600,6 +603,18 @@ LINUX_PATCH_DEPENDENCIES += $(foreach ext,$(LINUX_EXTENSIONS),\
 LINUX_PRE_PATCH_HOOKS += $(foreach ext,$(LINUX_EXTENSIONS),\
 	$(if $(BR2_LINUX_KERNEL_EXT_$(call UPPERCASE,$(ext))),\
 		$(call UPPERCASE,$(ext))_PREPARE_KERNEL))
+
+#batocera rust kernel support
+define LINUX_GET_RUST_SOURCE_CODE
+	$(HOST_DIR)/bin/curl -L "https://static.rust-lang.org/dist/rust-src-$(RUST_VERSION).tar.gz" | \
+        tar -xzf - -C "$(HOST_DIR)/lib/" \
+        "rust-src-$(RUST_VERSION)/rust-src/lib/" \
+        --strip-components=3
+	#mv $(HOST_DIR)/lib/rustlib/src/rust/library/* $(HOST_DIR)/lib/rustlib/src/
+	#rm -Rf $(HOST_DIR)/lib/rustlib/src/rust
+endef
+
+LINUX_PRE_PATCH_HOOKS += LINUX_GET_RUST_SOURCE_CODE
 
 # Checks to give errors that the user can understand
 
