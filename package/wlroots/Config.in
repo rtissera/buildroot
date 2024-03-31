@@ -29,6 +29,11 @@ config BR2_PACKAGE_WLROOTS
     select BR2_PACKAGE_LIBLIFTOFF
 	select BR2_PACKAGE_WAYLAND
 	select BR2_PACKAGE_WAYLAND_PROTOCOLS
+	# batocera
+	select BR2_PACKAGE_VULKAN_HEADERS
+	select BR2_PACKAGE_VULKAN_LOADER
+	select BR2_PACKAGE_HOST_GLSLANG
+
 	help
 	  wlroots is a modular Wayland library for building compositors
 	  which implements many of their common features.
