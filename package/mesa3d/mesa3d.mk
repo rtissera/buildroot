@@ -14,8 +14,16 @@ else
     MESA3D_VERSION = 24.0.3
 endif
 
+# hack to get mesa-asahi-edge
+ifeq ($(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_ASAHI),y)
+MESA3D_VERSION = asahi-20240228
+MESA3D_SITE = https://gitlab.freedesktop.org/asahi/mesa
+MESA3D_SITE_METHOD = git
+else
 MESA3D_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
 MESA3D_SITE = https://archive.mesa3d.org
+endif
+
 MESA3D_LICENSE = MIT, SGI, Khronos
 MESA3D_LICENSE_FILES = docs/license.rst
 MESA3D_CPE_ID_VENDOR = mesa3d
